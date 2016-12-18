@@ -3,6 +3,6 @@ package ru.innopolis.course3.task;
 /**
  * Created by Danil Popov course-3.
  */
-public interface IntegerAdder {
+public interface Summator {
     void addInt(int i);
 }

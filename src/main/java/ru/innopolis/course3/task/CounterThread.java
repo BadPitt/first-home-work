@@ -15,12 +15,12 @@ public class CounterThread extends Thread {
 
     private final String fileName;
     private ThreadsFileReader threadsFileReader;
-    private CustomCounter customCounter;
+    private Parser parser;
 
-    public CounterThread(ThreadInterrupter interrupter, IntegerAdder adder , String fn) {
+    public CounterThread(ThreadInterrupter interrupter, Summator adder , String fn) {
         fileName = fn;
         threadsFileReader = new ThreadsFileReaderImpl(interrupter);
-        customCounter = new CustomCounterImpl(interrupter, adder);
+        parser = new IntParser(interrupter, adder, new CounterValidatorImpl(interrupter));
     }
 
     @Override
@@ -34,7 +34,7 @@ public class CounterThread extends Thread {
         MDC.put("File name", fileName);
 
         String str = threadsFileReader.read(fileName);
-        customCounter.count(str);
+        parser.parseString(str);
 
         MDC.clear();
 

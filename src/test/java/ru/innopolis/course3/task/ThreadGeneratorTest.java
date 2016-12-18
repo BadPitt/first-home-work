@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicLong;
 
 import static org.junit.Assert.assertEquals;
@@ -11,13 +12,13 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by Danil Popov course-3.
  */
-public class MainTest {
+public class ThreadGeneratorTest {
 
-    private IntegerAdder adder;
+    private Summator adder;
 
     @Before
     public void init() {
-        adder = new Main(new CounterValidatorImpl());
+        adder = new ThreadGenerator(new ArrayList<>());
     }
 
     @Test
@@ -27,6 +28,6 @@ public class MainTest {
         adder.addInt(1);
         Field f = adder.getClass().getDeclaredField("count");
         f.setAccessible(true);
-        assertEquals(10, ((AtomicLong)f.get(adder)).get());
+        assertEquals(11, ((AtomicLong)f.get(adder)).get());
     }
 }
