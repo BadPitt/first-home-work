@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Danil Popov course-3.
+ * @author Popov Danil
  */
-
 public class Main {
 
     public static void main(String[] args) {

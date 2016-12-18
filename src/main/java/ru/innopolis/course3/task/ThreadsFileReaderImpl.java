@@ -9,7 +9,9 @@ import java.io.FileReader;
 import java.io.IOException;
 
 /**
- * Created by Danil Popov course-3.
+ * @author Popov Danil
+ *
+ * Read string from file, according to MAX_FILE_SIZE
  */
 public class ThreadsFileReaderImpl implements ThreadsFileReader {
 
@@ -22,18 +24,38 @@ public class ThreadsFileReaderImpl implements ThreadsFileReader {
     private Logger logger = LoggerFactory.getLogger(ThreadsFileReaderImpl.class);
     private ThreadInterrupter interrupter;
 
+    /**
+     * Create new ThreadsFileReaderImpl instance
+     * with default MAX_FILE_SIZE = 8192
+     *
+     * @param interrupter Thread interrupter which can check
+     *                    is threads interrupted or not.
+     *                    And it can set interrupt-flag to true
+     *                    for interrupting other threads
+     */
     public ThreadsFileReaderImpl(ThreadInterrupter interrupter) {
         this(interrupter, 8192);
     }
 
+    /**
+     * @param interrupter Thread interrupter which can check
+     *                    is threads interrupted or not.
+     *                    And it can set interrupt-flag to true
+     *                    for interrupting other threads
+     * @param maxFileSize Max count of symbols in file
+     */
     public ThreadsFileReaderImpl(ThreadInterrupter interrupter, int maxFileSize) {
         this.interrupter = interrupter;
         MAX_FILE_SIZE = maxFileSize;
     }
 
+    /**
+     * @param fileName Full file name
+     * @return String with file content
+     */
     @Override
     public String read(String fileName) {
-        StringBuffer stringBuffer = new StringBuffer();
+        StringBuilder stringBuilder = new StringBuilder();
 
         try (FileReader fileReader = new FileReader(fileName);
              BufferedReader bufferedReader = new BufferedReader(fileReader);) {
@@ -42,8 +64,8 @@ public class ThreadsFileReaderImpl implements ThreadsFileReader {
             int i = bufferedReader.read(charArray);
 
             while (i > 0) {
-                stringBuffer.append(charArray, 0, i);
-                if (stringBuffer.capacity() > MAX_FILE_SIZE) {
+                stringBuilder.append(charArray, 0, i);
+                if (stringBuilder.capacity() > MAX_FILE_SIZE) {
                     logger.error("FileName: " + fileName);
                     interrupter.interruptAll(FILE_IS_TOO_BIG_MSG + ": " + fileName);
                     break;
@@ -59,6 +81,6 @@ public class ThreadsFileReaderImpl implements ThreadsFileReader {
             interrupter.interruptAll(IO_ERROR_MSG);
         }
 
-        return stringBuffer.toString();
+        return stringBuilder.toString();
     }
 }

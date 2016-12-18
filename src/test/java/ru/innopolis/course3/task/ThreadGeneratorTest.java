@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Created by Danil Popov course-3.
+ * @author Popov Danil
  */
 public class ThreadGeneratorTest {
 

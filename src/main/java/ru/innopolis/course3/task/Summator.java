@@ -1,7 +1,7 @@
 package ru.innopolis.course3.task;
 
 /**
- * Created by Danil Popov course-3.
+ * @author Popov Danil
  */
 public interface Summator {
     void addInt(int i);

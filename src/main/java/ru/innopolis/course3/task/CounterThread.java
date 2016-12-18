@@ -7,7 +7,9 @@ import org.slf4j.MDC;
 import java.text.SimpleDateFormat;
 
 /**
- * Created by Danil Popov course-3.
+ * @author Popov Danil
+ *
+ * Thread for counting integers from resources
  */
 public class CounterThread extends Thread {
 
@@ -17,10 +19,18 @@ public class CounterThread extends Thread {
     private ThreadsFileReader threadsFileReader;
     private Parser parser;
 
-    public CounterThread(ThreadInterrupter interrupter, Summator adder , String fn) {
+    /**
+     * @param interrupter Thread interrupter which can check
+     *                    is threads interrupted or not.
+     *                    And it can set interrupt-flag to true
+     *                    for interrupting other threads
+     * @param summator    Class for containing share sum with add-method
+     * @param fn          Path to resource
+     */
+    public CounterThread(ThreadInterrupter interrupter, Summator summator, String fn) {
         fileName = fn;
         threadsFileReader = new ThreadsFileReaderImpl(interrupter);
-        parser = new IntParser(interrupter, adder, new CounterValidatorImpl(interrupter));
+        parser = new IntParser(interrupter, summator, new CounterValidatorImpl(interrupter));
     }
 
     @Override

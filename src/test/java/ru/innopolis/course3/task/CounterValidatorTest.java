@@ -7,7 +7,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Created by Danil Popov course-3.
+ * @author Popov Danil
  */
 public class CounterValidatorTest {
 
